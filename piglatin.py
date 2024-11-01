@@ -12,7 +12,7 @@ class PigLatin:
         return self._phrase
 
     def translate_word(self, word: str) -> str:
-        if any(c.islower() and c.isupper() for c in word):  # Mixed case check
+        if not word.islower() and not word.isupper() and not word.istitle():
             raise PigLatinError("Mixed case detected in word.")
 
         original_case = word.isupper()

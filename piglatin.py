@@ -1,4 +1,10 @@
+import re
+from error import PigLatinError
+
+
 class PigLatin:
+    ALLOWED_PUNCTUATION = ".,;:!?()'"
+
     def __init__(self, phrase: str):
         self._phrase = phrase
 
@@ -28,7 +34,15 @@ class PigLatin:
 
         translated_words = []
         for part in self._phrase.split():
-            translated_parts = [self.translate_word(word) for word in part.split('-')]
-            translated_words.append('-'.join(translated_parts))
+            # Split word from punctuation
+            match = re.match(r"^([a-zA-Z-]+)([.,;:!?()']*)$", part)
+            if not match:
+                raise PigLatinError("Unsupported punctuation detected.")
+
+            word, punctuation = match.groups()
+
+            # Translate the word and add the punctuation back
+            translated_word = "-".join(self.translate_word(w) for w in word.split('-'))
+            translated_words.append(translated_word + punctuation)
 
         return ' '.join(translated_words)

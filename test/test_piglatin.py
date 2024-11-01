@@ -41,6 +41,16 @@ class TestPigLatin(unittest.TestCase):
         translator_composite = PigLatin("well-being")
         self.assertEqual(translator_composite.translate(), "ellway-eingbay")
 
+    def test_translate_phrase_with_punctuation(self):
+        translator_exclamation = PigLatin("hello world!")
+        self.assertEqual(translator_exclamation.translate(), "ellohay orldway!")
+
+        translator_punctuation = PigLatin("yes, no; maybe: really?")
+        self.assertEqual(translator_punctuation.translate(), "esyay, onay; aybemay: eallyray?")
+
+        with self.assertRaises(PigLatinError):
+            PigLatin("hello @world").translate()
+
 
 
 if __name__ == "__main__":

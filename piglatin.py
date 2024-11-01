@@ -18,4 +18,10 @@ class PigLatin:
             else:
                 return word + "ay"
         else:
-            return word[1:] + word[0] + "ay"
+            consonant_prefix = ""
+            for char in word:
+                if char.lower() not in "aeiou":
+                    consonant_prefix += char
+                else:
+                    break
+            return word[len(consonant_prefix):] + consonant_prefix + "ay"

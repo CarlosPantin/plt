@@ -1,6 +1,4 @@
 class PigLatin:
-
-
     def __init__(self, phrase: str):
         self._phrase = phrase
 
@@ -19,3 +17,5 @@ class PigLatin:
                 return word + "yay"
             else:
                 return word + "ay"
+        else:
+            return word[1:] + word[0] + "ay"
